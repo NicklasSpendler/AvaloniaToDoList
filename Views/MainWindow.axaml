@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TodoListv1.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+        Width="450"
+        Height="800"
+        x:Class="TodoListv1.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TodoListv1">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid x:Name="Root" Background="{DynamicResource PrimaryBackground}" RowDefinitions="200, *, auto">
+        <Border Classes="Header">
+            <TextBlock Grid.Row="0" Classes="HeaderText" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" FontWeight="Bold" Text="Simple Todo List" />
+        </Border>
+        <ScrollViewer Grid.Row="1" Background="{DynamicResource GradientExample}">
+            <ItemsControl ItemsSource="{Binding ToDoItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:ToDoItemViewModel">
+                        <Grid ColumnDefinitions="*, auto">
+                            <CheckBox Content="{Binding Content}"
+                                      IsChecked="{Binding IsChecked}"></CheckBox>
+                            
+                            <Button Command="{Binding #Root.((vm:MainWindowViewModel)DataContext).RemoveItemCommand}" CommandParameter="{Binding .}" Grid.Column="1">
+                            Delete
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <TextBox Name="TodoTextBox" Text="{Binding NewItemContent}" Watermark="Add a new item" Grid.Row="2" Margin="10">
+            <TextBox.InnerRightContent>
+                <Button Command="{Binding AddItemCommand}">Add</Button>
+            </TextBox.InnerRightContent>
+            <TextBox.KeyBindings>
+                <KeyBinding Command="{Binding AddItemCommand}" Gesture="Enter"/>
+            </TextBox.KeyBindings>
+        </TextBox>
+        
+    </Grid>
+
+</Window>

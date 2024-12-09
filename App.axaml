@@ -1,0 +1,26 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TodoListv1.App"
+             xmlns:local="using:TodoListv1"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="Styles/AppDefaultStyles.axaml"></StyleInclude>
+    </Application.Styles>
+             
+             <Application.Resources>
+                 <SolidColorBrush x:Key="PrimaryBackground">#14172d</SolidColorBrush>
+                 
+                 <!-- Eksempel på gradient -->
+                 <LinearGradientBrush x:Key="GradientExample" StartPoint="0%, 100%" EndPoint="0%, 0%">
+                     <GradientStop Offset="0" Color="#111214"/>
+                     <GradientStop Offset="1" Color="#14172d"/>
+                 </LinearGradientBrush>
+             </Application.Resources>
+</Application>
